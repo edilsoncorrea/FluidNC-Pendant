@@ -6,3 +6,5 @@ const char *ssid = "<your Wi-Fi SSID>";
 const char *password = "<your Wi-Fi SSID password>";
 const char *fluidnc_host = "fluidnc.local"; // this is default MDNS name, feel free to change to match your setup
 const uint16_t fluidnc_port = 81; // chnage only if FLuidNC websocket port id chnaged (rare cases)
+const uint16_t fluidnc_alt_port = 80; // common HTTP/WebSocket port on newer builds
+const char *fluidnc_path = "/"; // use "/" (legacy) or "/ws" (newer FluidNC builds)

@@ -1,6 +1,7 @@
 // Main Pendant declarations for FluidNC Pendant
 //
 #include <Arduino.h>
+#include <string.h>
 
 // Config file contains Wi-Fi connection details and FluidNC hostname/port
 #include "Config.h"
@@ -51,10 +52,6 @@ RotaryEncoder *encoderA = nullptr;
 #define TFT_DARKRED 0xA800
 #define TFT_MEDIUMBLUE 0x3D5F
 #define TFT_DARKORANGE 0xFAC0
-
-// ST7789 Display Commands
-#define TFT_SLPIN   0x10
-#define TFT_DISPOFF 0x28
 
 #define MAX_JOGSTR 50
 #define MAX_STATUSSTR 50

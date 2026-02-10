@@ -130,7 +130,21 @@ void ConnectWiFi()
     }
     DEBUG_SERIAL.print("\n[SETUP] Local IP: "); DEBUG_SERIAL.println(WiFi.localIP());
 
-    bool conn = myCNC.connect(fluidnc_host, fluidnc_port);
+    bool conn = myCNC.connect(fluidnc_host, fluidnc_port, fluidnc_path);
+    if (!conn) {
+      const char *alt_path = (strcmp(fluidnc_path, "/") == 0) ? "/ws" : "/";
+      DEBUG_SERIAL.printf("[SETUP] WebSocket connect failed. Trying alt path %s\n", alt_path);
+      conn = myCNC.connect(fluidnc_host, fluidnc_port, alt_path);
+    }
+    if (!conn && fluidnc_alt_port != fluidnc_port) {
+      DEBUG_SERIAL.printf("[SETUP] WebSocket connect failed. Trying alt port %d\n", fluidnc_alt_port);
+      conn = myCNC.connect(fluidnc_host, fluidnc_alt_port, fluidnc_path);
+      if (!conn) {
+        const char *alt_path = (strcmp(fluidnc_path, "/") == 0) ? "/ws" : "/";
+        DEBUG_SERIAL.printf("[SETUP] Alt port failed. Trying alt path %s\n", alt_path);
+        conn = myCNC.connect(fluidnc_host, fluidnc_alt_port, alt_path);
+      }
+    }
     if (!conn)
     {
         DEBUG_SERIAL.println("[SETUP] Not connected, entering deep sleep mode.");
