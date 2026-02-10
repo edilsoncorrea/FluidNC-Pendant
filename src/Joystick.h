@@ -50,6 +50,18 @@ int readJSY() {
   return (rdRaw);
 }
 
+int readJSZ() {
+  int rdRaw = 0;
+  for (int n = 10; n; --n) {
+    rdRaw += analogRead(PIN_JSZ) - calibrateZ;
+  }
+  rdRaw /= 10;
+  // soft hysteresis
+  if (rdRaw < rdRawMin + hysteresis && rdRaw > rdRawMin && rdZ == 1) rdRaw = rdRawMin;
+  else if (rdRaw > rdRawMax - hysteresis && rdRaw < rdRawMax && rdZ == -1) rdRaw = rdRawMax;
+  return (rdRaw);
+}
+
 int checkJoystick() {
   char jogStr[MAX_JOGSTR];
   static int rdXprev = 0, rdYprev = 0, rdZprev = 0;
@@ -67,6 +79,8 @@ int checkJoystick() {
     rdX = 0;
     rdY = 0;
     rdZ = 0;
+
+    /*
     if (jState == jsZaxis) {
       if (readJSY() <= rdRawMin) rdZ = 1;
       else if (readJSY() >= rdRawMax) rdZ = -1;
@@ -76,6 +90,15 @@ int checkJoystick() {
       if (readJSY() <= rdRawMin) rdY = 1;
       else if (readJSY() >= rdRawMax) rdY = -1;
     }
+    */
+
+    if (readJSX() <= rdRawMin) rdX = -1;
+    else if (readJSX() >= rdRawMax) rdX = 1;
+    if (readJSY() <= rdRawMin) rdY = 1;
+    else if (readJSY() >= rdRawMax) rdY = -1;
+    if (readJSZ() <= rdRawMin) rdZ = 1;
+    else if (readJSZ() >= rdRawMax) rdZ = -1;
+
     if (rdX == 0 && rdY == 0 && rdZ == 0) {
       if (myCNC.mState() == Jog) {
         forceEndJog();

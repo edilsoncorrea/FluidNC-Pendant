@@ -29,6 +29,7 @@ RotaryEncoder *encoderA = nullptr;
 #define PIN_REM2 GPIO_NUM_13
 #define PIN_JSX GPIO_NUM_32
 #define PIN_JSY GPIO_NUM_33
+#define PIN_JSZ GPIO_NUM_39
 #define PIN_REMS GPIO_NUM_2
 #define PIN_YELLOW GPIO_NUM_25
 #define PIN_GREEN GPIO_NUM_26
@@ -50,6 +51,10 @@ RotaryEncoder *encoderA = nullptr;
 #define TFT_DARKRED 0xA800
 #define TFT_MEDIUMBLUE 0x3D5F
 #define TFT_DARKORANGE 0xFAC0
+
+// ST7789 Display Commands
+#define TFT_SLPIN   0x10
+#define TFT_DISPOFF 0x28
 
 #define MAX_JOGSTR 50
 #define MAX_STATUSSTR 50
@@ -125,7 +130,7 @@ volatile float distX = 0, distY = 0, distZ = 0;
 volatile int battVolt;
 unsigned long sinceStart, lastGrblState;
 int rdX = 0, rdY = 0, rdZ = 0, multXYZ = 0;
-int calibrateX, calibrateY;
+int calibrateX, calibrateY, calibrateZ;
 //float mX, mY, mZ;  //Machine positions
 //float wX, wY, wZ;  //Work positions
 RTC_DATA_ATTR int jogSpeed = 1000; //Overleeft een herstart vanuit sleep

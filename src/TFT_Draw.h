@@ -89,21 +89,21 @@ void tftUpdate(bool force) {
     if (mXdisp != myCNC.mX() || wXdisp != myCNC.wX() || mYdisp != myCNC.mY() || wYdisp != myCNC.wY() || mZdisp != myCNC.mZ() || wZdisp != myCNC.wZ()) activeTimer(true);
     if (mXdisp != myCNC.mX() || wXdisp != myCNC.wX() || force) {
       if (rState == RotXaxis) printCircleBlue(8, LINEHEIGHT_DEF / 2 - 1);
-      tftPrint(TFT_LEFT, TFT_TRANSP, (jState == jsXYaxis && rState != RotSpindlespeed) ? TFT_LIGHTRED : TFT_WHITE, TFT_BLACK, 2, 0 * LINEHEIGHT_DEF + 2, 0, "X");
+      tftPrint(TFT_LEFT, TFT_TRANSP, (/*jState == jsXYaxis &&*/ rState != RotSpindlespeed) ? TFT_LIGHTRED : TFT_WHITE, TFT_BLACK, 2, 0 * LINEHEIGHT_DEF + 2, 0, "X");
       printAxisCoords(myCNC.mX(), myCNC.mX() - myCNC.wX(), 0);
       mXdisp = myCNC.mX();
       wXdisp = myCNC.wX();
     }
     if (mYdisp != myCNC.mY() || wYdisp != myCNC.wY() || force) {
       if (rState == RotYaxis) printCircleBlue(8, LINEHEIGHT_DEF + LINEHEIGHT_DEF / 2 - 1);
-      tftPrint(TFT_LEFT, TFT_TRANSP, (jState == jsXYaxis && rState != RotSpindlespeed) ? TFT_LIGHTRED : TFT_WHITE, TFT_BLACK, 2, 1 * LINEHEIGHT_DEF + 2, 0, "Y");
+      tftPrint(TFT_LEFT, TFT_TRANSP, (/*jState == jsXYaxis &&*/ rState != RotSpindlespeed) ? TFT_LIGHTRED : TFT_WHITE, TFT_BLACK, 2, 1 * LINEHEIGHT_DEF + 2, 0, "Y");
       printAxisCoords(myCNC.mY(), myCNC.mY() - myCNC.wY(), 1);
       mYdisp = myCNC.mY();
       wYdisp = myCNC.wY();
     }
     if (mZdisp != myCNC.mZ() || wZdisp != myCNC.wZ() || force) {
       if (rState == RotZaxis) printCircleBlue(8, LINEHEIGHT_DEF * 2 + LINEHEIGHT_DEF / 2 - 1);
-      tftPrint(TFT_LEFT, TFT_TRANSP, (jState == jsZaxis && rState != RotSpindlespeed) ? TFT_LIGHTRED : TFT_WHITE, TFT_BLACK, 2, 2 * LINEHEIGHT_DEF + 2, 0, "Z");
+      tftPrint(TFT_LEFT, TFT_TRANSP, (/*jState == jsZaxis && */rState != RotSpindlespeed) ? TFT_LIGHTRED : TFT_WHITE, TFT_BLACK, 2, 2 * LINEHEIGHT_DEF + 2, 0, "Z");
       printAxisCoords(myCNC.mZ(), myCNC.mZ() - myCNC.wZ(), 2);
       mZdisp = myCNC.mZ();
       wZdisp = myCNC.wZ();

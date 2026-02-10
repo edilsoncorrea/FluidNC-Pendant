@@ -1,0 +1,36 @@
+feat: Add simultaneous 3-axis joystick control for improved ergonomics
+
+BREAKING CHANGE: Red button behavior changed - no longer toggles between XY and Z modes
+
+Major improvements:
+- Implemented independent Z-axis analog input on GPIO 39
+- All three axes (X, Y, Z) now respond simultaneously to joystick input
+- Removed mode switching requirement for more intuitive operation
+- Added readJSZ() function with hysteresis for smooth Z-axis control
+- Updated jog command to support 3D movement: $J=G21G91X%fY%fZ%fF%d
+
+Hardware:
+- Added PIN_JSZ (GPIO 39) for Z-axis joystick potentiometer
+- Z-axis calibration integrated into startup sequence
+- Compatible with existing TTGO T-Display hardware
+
+Software Changes:
+- src/Pendant.h: Added PIN_JSZ, calibrateZ variable, display commands
+- src/Joystick.h: Implemented readJSZ(), removed XY/Z toggle logic
+- src/Setup.h: Added Z-axis calibration (100-sample averaging)
+- src/TFT_Draw.h: Updated visual indicators (removed mode-dependent colors)
+- src/ButtonHandlers.h: Simplified red button to always use jsXYaxis mode
+
+Benefits:
+- No more mode switching - all axes available instantly
+- True 3D diagonal jogging capability
+- Improved user experience and workflow efficiency
+- Maintains backward compatibility with original FluidNC WebSocket protocol
+
+Migration:
+- Connect Z-axis potentiometer to GPIO 39
+- Red button now serves as XYZ selector instead of mode toggle
+- All three axes respond to joystick input simultaneously
+
+Tested on: TTGO T-Display with ESP32
+FluidNC WebSocket: v1.0.0 compatible

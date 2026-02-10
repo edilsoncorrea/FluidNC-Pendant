@@ -54,10 +54,12 @@ void setup() {
   for (int n = 100; n; --n) {
     calibrateX += analogRead(PIN_JSX);
     calibrateY += analogRead(PIN_JSY);
+    calibrateZ += analogRead(PIN_JSZ);
     delay(1);
   }
   calibrateX /= 100;
   calibrateY /= 100;
+  calibrateZ /= 100;
 
   pinMode(PIN_REMS, INPUT_PULLUP);
   pinMode(PIN_GREEN, INPUT_PULLUP);

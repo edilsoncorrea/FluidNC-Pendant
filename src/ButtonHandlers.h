@@ -50,7 +50,7 @@ void red_button_handleEvents(uint8_t eventType)
       DEBUG_SERIAL.println("[RedButtonHandler] pressed.");
       if (rState != RotSpindlespeed) {
         activeTimer(true);
-        jState = jsZaxis;
+        jState = jsXYaxis; //jsZaxis;
         tftUpdate(true);
       }
 
